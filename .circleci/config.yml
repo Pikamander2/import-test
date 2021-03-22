@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build-and-test:
+    working_directory: ~/src/
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-deps
+      - run:
+          command: python3 test-script-2.py test
+          name: Test
+      - store_test_results:
+          path: test-results
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
